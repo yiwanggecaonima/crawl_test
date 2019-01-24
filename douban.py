@@ -1,6 +1,6 @@
 from basicSpider import *
-# from UA import UA
-#from bs4 import BeautifulSoup
+from UA import UA
+from bs4 import BeautifulSoup
 import json
 import pymongo
 import re
@@ -27,12 +27,12 @@ def save_mongo(result):
         return True
     return False
 
-
 def main():
     url = 'https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=50&page_start=0'
     html = get_html(url)
     result = get_page(html)
     if result:
         save_mongo(result)
+        
 if __name__ == '__main__':
     main()
