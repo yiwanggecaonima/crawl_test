@@ -45,9 +45,6 @@ def downloadHtml(url, headers=None,
     if num_retries <= 0:
         return html
 
-    # 一般来说，使用UA池和Proxy池相结合的方式来访问某个页面，会
-    # 更加的不容易被反爬。
-
     # 动态的调整代理服务器的使用策略
     if random.randint(PROXY_RANGE_MIN, PROXY_RANGE_MAX) > PROXY_RANGE:
         logger.info("No Proxy")
@@ -59,7 +56,7 @@ def downloadHtml(url, headers=None,
     # 把opener装载进urllib库中，准备使用
     opener.addheaders = headers
     urllib.request.install_opener(opener)
-
+    # 各种异常捕获
     try:
         response = urllib.request.urlopen(url, timeout = timeout)
         html = response.read().decode(decodeInfo)
